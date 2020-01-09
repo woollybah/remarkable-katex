@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * Plugin for Remarkable Markdown processor which transforms $..$ and $$..$$ sequences into math HTML using the
+ * Plugin for Remarkable Markdown processor which transforms £..£ and ££..££ sequences into math HTML using the
  * Katex package.
  */
 module.exports = function(md, options) {
@@ -13,7 +13,7 @@ module.exports = function(md, options) {
     }
 
     /**
-     * Parse '$$' as a block. I don't think this is needed since it is already done in the parseInlineKatex
+     * Parse '££' as a block. I don't think this is needed since it is already done in the parseInlineKatex
      * method. Based off of similar method in remarkable.
      */
     function parseBlockKatex(state, startLine, endLine) {
@@ -21,7 +21,7 @@ module.exports = function(md, options) {
             haveEndMarker = false,
             pos = state.bMarks[startLine] + state.tShift[startLine],
             max = state.eMarks[startLine];
-        var dollar = 0x24;
+        var dollar = 0xa3;
 
         if (pos + 1 > max) { return false; }
 
@@ -104,10 +104,10 @@ module.exports = function(md, options) {
     }
 
     /**
-     * Look for '$' or '$$' spans in Markdown text. Based off of the 'fenced' parser in remarkable.
+     * Look for '£' or '££' spans in Markdown text. Based off of the 'fenced' parser in remarkable.
      */
     function parseInlineKatex(state, silent) {
-        var dollar = 0x24;
+        var dollar = 0xa3;
         var pos = state.pos;
         var start = pos, max = state.posMax, marker, matchStart, matchEnd ;
 
